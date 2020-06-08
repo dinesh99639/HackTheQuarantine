@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CTF#3</title>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+	<style type="text/css">
+		body
+		{
+			background-color: black;
+			color: white;
+		}
+		.header
+		{
+			text-align: center;
+			font-size: 30px;
+		}
+		.desc
+		{
+			text-align: center;
+			font-size: 20px;
+			margin-top: 20px;
+		}
+		.body .container
+		{
+			position: absolute;
+			background-color: rgba(0,0,0,0);
+			height: 500px;
+			width: 70%;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 1;
+		}
+		.body .random
+		{
+			position: absolute;
+			margin-top: 20px;
+			border: 1px solid white;
+			height: 400px;
+			width: 70%;
+			left: 50%;
+			transform: translateX(-50%);
+			text-align: center;
+			color: green;
+			z-index: -1;
+		}
+	</style>
+</head>
+<body>
+	<div class="header">CTF 3</div>
+	<div class="desc">Find the key 3 from the scrolling text</div>
+	<div class="body">
+		<div class="container"></div>
+		<div class="random">Key3: 1.21sad12sad132asd31a3s1d2s<br>1</div>
+	</div>
+	<script>
+
+		function shuffle(array) {
+		  var currentIndex = array.length, temporaryValue, randomIndex;
+
+		  // While there remain elements to shuffle...
+		  while (0 !== currentIndex) {
+
+		    // Pick a remaining element...
+		    randomIndex = Math.floor(Math.random() * currentIndex);
+		    currentIndex -= 1;
+
+		    // And swap it with the current element.
+		    temporaryValue = array[currentIndex];
+		    array[currentIndex] = array[randomIndex];
+		    array[randomIndex] = temporaryValue;
+		  }
+
+		  return array;
+		}
+
+		var encrypted = "U2FsdGVkX1+CYj9oHBfjHNfroE7DOFDy+Gsju1lG3gnXWGcKbp/v/q+KSpN16e8RqFz/Y8DR/OeXKSeZfTS1eV7upLvxmgcAeS+b8mmASWAhkQpGs81eRqp+Wc1kxlNyS67WX/av0BqEoph5yS/gwAUbi4YkJ/k9wn480uHvbyhvOfKVp/g5GxR5M8bonVUkUgD64WE+bUeQTJnwpLJxEuTGpqCGVnBun7ZUrERkZOn4XETGsh+2lNPmAvymjdApl5LEk3pTUDhV/SF/6UqR9oF21qPVpw4OOPf3kxBqJnrJKrS5NxwKZygixstymGJiX4kMfVTj7ZwJORyM69B7970DostPbvjE+wvmGSTujxzSv6bl4Loc2dLWkcD3Qoz9Uf4/WfSikKZZ1Q0dH2vs8kGD9eFIwDCw+kUN7+vLwftxjtM1fCrXEAFlIjXQn+TiMsYuNoPOTvsr/Y8JHKLdiQ0NRKEZMysXCK25GBGE0HQ8irNqpO2fBxLK20XmbFabiTlYZSKUdJwCiMZ78patD+P/DIozqkE3UOt0o4aQaRsktyKB11HeDsylZBr2SlfGFHy6UKyQhp+EXmS2g6zgE/Cx0Y1ucSFSMOb+MoR0Pkt8AmlivhyVmKqEwi2lL3cvhbmtt2OoOg5Z7qBq+4HzNEpC9lH6/PaXHNzYDoVx/ZrMhLDu7XG0HyJN2UC8y2+HLq+NYFBtWnSRVuqQ/9bW/dJ9Mr/XOluVizm45I0BLsE3YXCvcgR7TBd0p68BC1/ZFgoAZWgozRasBylDKujryOZb5zB3T3kmFpWhsQO+Nd8Cm+lCMYKKEcr8nAukxDmc7hlbWHZhtEFNAY29BcgLwsIrQZ9WsyHH6rg+/jbwfKx7EJt00SrFtae1aHtbn4u61ep2R3BklPMuAYClJTkCWgYp3gMWHSIfEoV3MHLa/zElwnbNKsV2Yae89jU92sPFbcE0qkZHkJ8VpZnxr1QFCn4wuY+pW57NE3LyDmSmAI7ZAl+pKLuVVLzh2d/ftc9jvVeJvt3NYzVighY++y3tXWCBhkdDMGfLGqd0NP3sOgGtXlKjzA9pyyaWfOzGQlRjsTPDoGnmoOBJC4h9BRfFLVCRQQV+mGgsIJwqn/+hMw9W0m9aiCplRLewE3AHzEVuKuz3tenb4KKQbWzagKvDTx5I0Gifo5CRjWCEjNk7l4Zwi1odqv+i95n845xIslZCGMBp0NHa8IWlCEybhxAUnymChp77bDHTJ6yeG20xn7ekV40Wz3VjpAP49La3JAY6PIno7N/MS8eyiGadb0gQ1Wc1Kv1sI74jybj+1szoEEw1+lYZYyHwXNstHOxR8zRxHnyd2OAifIBjIWvXDEYO3qqrgBQyE5JVgNTeMmmpVo+Im2N2ii0UfTVUacrv45n5";
+
+
+
+		var reset = setInterval(()=>{
+			var decrypted = CryptoJS.AES.decrypt(encrypted.toString(), "Secret Passphrase");
+			text_array = decrypted.toString(CryptoJS.enc.Utf8);
+
+			text = text_array.split(",")
+
+			var randomtext = shuffle(text);
+			var display = "";
+			for (var i=0; i<randomtext.length; i++)
+			{
+				display += randomtext[i]+"<br>";
+			}
+
+			$('.body .random').html(display);
+		}, 100);
+
+	</script>
+</body>
+</html>
