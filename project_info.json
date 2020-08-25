@@ -1,5 +1,6 @@
 {
 	"name": "HackTheQuarantine",
+	"full_name": "dinesh99639/HackTheQuarantine",
 	"icon": "",
 	"desc": "This website is created to manage the online test interface for HackTheQuarantine, a national level Hackathon.",
 	"tech": ["HTML", "CSS", "JavaScript", "jQuery", "AJAX", "BootStrap", "PHP", "MySQL"],
